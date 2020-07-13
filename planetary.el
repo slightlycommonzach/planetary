@@ -209,8 +209,8 @@
 	result))
 
 (defun get-appropriate-axis (string axis-cond-test dir)
-  "Get the proper axis with a fallback, STRING, using AXIS-COND-TEST to know whether to use a lighter version, DIR."
-  (if (image-type-available-p (intern (file-name-extension (get-extension (concat (substring dir 0 (+ (cl-search "-standards/" dir :test 'equal) (length "standards/"))) "axis")))))
+  "STRING AXIS-COND-TEST DIR."
+  (if (image-type-available-p (intern (file-name-extension dir)))
 	  (if (and (eq proper-axis nil) (not is-animating-p))
 		  (propertize string 'display (create-image (get-extension (concat image-root axis-cond-test "-standards/axis"))
 													(intern (file-name-extension (get-extension (concat image-root axis-cond-test "-standards/axis"))))
