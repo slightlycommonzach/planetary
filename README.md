@@ -71,36 +71,38 @@ In order to access the animation feature, you can either run
 
 ```M-x stop-blink```. A must function. If it is blinking, you use this to restart the timer if `animated-timer` is enabled, or under any other circumstance, disabling `M-x start-blink`.
 
+You can also click the planets to move to the lowest part of a given position, being the first part of the 9th that the buffer is divided into by default with the planets if you choose not to modify them yourself.
+
 ## Screenshots
 
 At the bottom of the buffer:
 
 ![Bottom of the Buffer](./screenshots/buffer-bottom.png)
 
-In the middle of the buffer
+In the middle of the buffer:
 
 ![Middle of the Buffer](./screenshots/mid-buffer.png)
 
-At the top of the buffer
+At the top of the buffer:
 
 ![Top of the Buffer](./screenshots/top-buffer.png)
 
-If `dark-planets` is set to `nil`
+If `dark-planets` is set to `nil`:
 
 ![If dark-planets is set to nil](./screenshots/dark-planets-nil.png)
 
-If `axis-allowed` and `dark-planets` are set to `nil`
+If `axis-allowed` and `dark-planets` are set to `nil`:
 
 ![If both axis-allowed and dark-planets are set to nil](./screenshots/axis-dark-nil.png)
 
-If `allowed-axis` is set to `nil`
+If `allowed-axis` is set to `nil`:
 
 ![If allowed-axis is set to nil](./screenshots/allowed-axis-nil.png)
 
-The first part of the repetitive flash activated as seen above.
+The first part of the repetitive flash activated as seen above:
 
 ![The first part of the animation](./screenshots/normal-flash.png)
 
-The second part of the repetitive flash activated as seen above.
+The second part of the repetitive flash activated as seen above:
 
 ![The second part of the animation](./screenshots/contrasted-flash.png)

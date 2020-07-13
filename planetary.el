@@ -119,7 +119,7 @@
 (defvar is-animating-p nil)
 
 (defun get-proper-axis ()
-  "."
+  "Alternate between the contrast and normal based on odds/evens."
   (if is-animating-p
 	  (let ((result '()))
 		(if (eq (% count-it 2) 0)
@@ -129,7 +129,7 @@
 		result)))
 
 (defun get-update ()
-  "."
+  "Using get-proper-axis, the program can use this function to set the alteration."
   (setq is-animating-p t
 		proper-axis (get-proper-axis))
   (force-mode-line-update))
@@ -209,8 +209,8 @@
 	result))
 
 (defun get-appropriate-axis (string axis-cond-test dir)
-  "STRING AXIS-COND-TEST DIR."
-  (if (image-type-available-p (intern (file-name-extension dir)))
+  "Get the proper axis with a fallback, STRING, using AXIS-COND-TEST to know whether to use a lighter version, DIR."
+  (if (image-type-available-p (intern (file-name-extension (get-extension (concat (substring dir 0 (+ (cl-search "-standards/" dir :test 'equal) (length "standards/"))) "axis")))))
 	  (if (and (eq proper-axis nil) (not is-animating-p))
 		  (propertize string 'display (create-image (get-extension (concat image-root axis-cond-test "-standards/axis"))
 													(intern (file-name-extension (get-extension (concat image-root axis-cond-test "-standards/axis"))))
@@ -219,7 +219,7 @@
 	(throw 'error "Notice: Double-check support for the images you added.")))
 
 (defun buttonize (string number)
-  "STRING NUMBER."
+  "Alter STRING to add a button ui such that it will move to NUMBERs ratio to solar-system-length in comparison to the length of the buffer, and move to that point."
   (propertize string
 			  'mouse-face 'mode-line-highlight
 			  'local-map (make-mode-line-mouse-map 'mouse-1 (lambda () (interactive)
@@ -279,9 +279,6 @@
 					 (moreclick-size (- solar-system-length planets))) ;; Get the remainder, the solar-system-length is simply the size of the numerically named photos found in `normal-standards/', and planets is just the amount to activate (pull from `normal-standards/')
 				(if debug-mode (message (format "Planets: %s | MoreClick-Size %s | Solar-System-Length: %s" planets moreclick-size solar-system-length)))
  				(dotimes (number planets)
-				  (if (and allowed-axis
-						   )
-					  (setq result (concat result)))
 				  (setq result (concat result (appropriate-image "_" (get-extension (concat image-root (format "normal-standards/%d" number)))))))
 				(dotimes (number moreclick-size)
 				  (setq result (concat result
