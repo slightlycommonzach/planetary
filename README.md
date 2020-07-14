@@ -31,34 +31,39 @@ At the moment, I still cannot find a way to have it restart upon variable declar
 
 * `allowed-axis` (defaults to `t`) - If set to `nil`, the mode-line will no longer display axis.xpm between the images
 
+* `dir-for-darks' (defaults to `"dark-standards/"') - Set to replace the name `dark-standards/' for whatever purpose you may be interested in
+
+* `dir-for-normals' (defaults to `"normal-standards/"') - Set to replace the name `normal-standards/' for whatever purpose you may be interested in
+
 The configuration, add as many images as you please, but follow the naming conventions:
 
 ```
-images/ (You can alter this with the "image-root" variable, be sure to list the full directory)
-|-- README.md
-|-- dark-standards -- Unfortunately you must keep the names "dark-standards/" and "normal-standards/"
-|   |-- 0.xpm -- Our algorithm searches for which to add in the order of their numerical name representation, no duplicates!
-|   |-- 1.xpm
-|   |-- 2.xpm
-|   |-- 3.xpm
-|   |-- 4.xpm
-|   |-- 5.xpm
-|   |-- 6.xpm
-|   |-- 7.xpm
-|   |-- 8.xpm
-|   `-- axis.xpm -- The separator! If you wish to just have the numerical images you may set axis-allowed to 
-|-- empty.xpm -- Experimental
-|-- normal-standards
-|   |-- 0.xpm
-|   |-- 1.xpm
-|   |-- 2.xpm
-|   |-- 3.xpm
-|   |-- 4.xpm
-|   |-- 5.xpm
-|   |-- 6.xpm
-|   |-- 7.xpm
-|   |-- 8.xpm
-|   `-- axis.xpm
+|-- images (You can alter this with the "image-root" variable, be sure to list the full directory)
+|   |-- dark-standards -- You can change the name of dark-standards with the dir-for-darks variable
+|   |   |-- 0.xpm -- Our approach searches for which to add in the order of their numerical name representation
+|   |   |-- 1.xpm -- Add whatever image types you'd like.
+|   |   |-- 2.xpm
+|   |   |-- 3.xpm
+|   |   |-- 4.xpm
+|   |   |-- 5.xpm
+|   |   |-- 6.xpm
+|   |   |-- 7.xpm
+|   |   |-- 8.xpm
+|   |   |-- axis.xpm -- The separator! If you wish to just have the numerical images you may set axis-allowed to nil
+|   |   `-- contrast-flash.xpm
+|   |-- empty.xpm
+|   `-- normal-standards -- You can change the name of normal-standards with the dir-for-normals variable
+|       |-- 0.xpm
+|       |-- 1.xpm
+|       |-- 2.xpm
+|       |-- 3.xpm
+|       |-- 4.xpm
+|       |-- 5.xpm
+|       |-- 6.xpm
+|       |-- 7.xpm
+|       |-- 8.xpm
+|       |-- axis.xpm
+|       `-- normal-flash.xpm
 ```
 
 ## Animation
