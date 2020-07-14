@@ -167,12 +167,8 @@
 
 (defun count-planets (dir)
   "Count primary images in DIR so long as they follow the directed standard."
-  (let* ((files (directory-files dir nil "^\\([^.]\\|\\.[^.]\\|\\.\\..\\)"))
-		 (count 0))
-	(dotimes (number (length files))
-	  (if (string-match-p "\\`[0-9]*\\'" (file-name-sans-extension (elt files number)))
-		  (setq count (+ count 1))))
-	count))
+  (let ((files (directory-files dir nil "^\\([0-9]+\.[a-zA-Z0-9_-]+.*$\\)")))
+	(length files)))
 
 (defconst solar-system-length (count-planets (concat image-root "normal-standards/")))
 (defconst turning-off-mlp mode-line-position) ; Constant definition of the old mode-line-position (being the X% and L#), as to seamlessly turn off planetary mode interactively.
@@ -208,15 +204,15 @@
 	  (setq result nil))
 	result))
 
-(defun get-appropriate-axis (string axis-cond-test dir)
-  "STRING AXIS-COND-TEST DIR."
-  (if (image-type-available-p (intern (file-name-extension dir)))
+(defun get-appropriate-axis (string axis-cond-test)
+  "Get the proper axis with a fallback, STRING, using AXIS-COND-TEST to know whether to use a lighter version."
+  (if (image-type-available-p (intern (file-name-extension (get-extension (concat image-root axis-cond-test "-standards/axis")))))
 	  (if (and (eq proper-axis nil) (not is-animating-p))
 		  (propertize string 'display (create-image (get-extension (concat image-root axis-cond-test "-standards/axis"))
 													(intern (file-name-extension (get-extension (concat image-root axis-cond-test "-standards/axis"))))
 													nil :ascent 'center))
 		(propertize string 'display proper-axis))
-	(throw 'error "Notice: Double-check support for the images you added.")))
+	(throw 'error "Notice: Double-check support for the axis image you added.")))
 
 (defun buttonize (string number)
   "Alter STRING to add a button ui such that it will move to NUMBERs ratio to solar-system-length in comparison to the length of the buffer, and move to that point."
@@ -233,13 +229,12 @@
   (let* ((result "")
 		 (file-type (intern (file-name-extension dir)))
 		 (loop-num (file-name-base dir))
-		 (n-or-d (if (eq (cl-search "normal-standards/" dir :test 'equal) nil) "dark"
-				   "normal")))
+		 (n-or-d (if (eq (cl-search "normal-standards/" dir :test 'equal) nil) "dark" "normal")))
 	(if (image-type-available-p file-type)
 		(progn
 		  (if (and allowed-axis
 				   (not (string= dir (get-extension (concat image-root n-or-d "-standards/0")))))
-			  (setq result (get-appropriate-axis string n-or-d dir)))
+			  (setq result (get-appropriate-axis string n-or-d)))
 		  (setq result (concat result
 							   (buttonize
 									   (propertize string 'display (create-image dir file-type nil :ascent 'center))
@@ -248,12 +243,10 @@
 	  (throw 'warning "Notice: Double-check support for the images you added."))
 	result))
 
-(defconst planetarium--has-duplicates (if (or (and (not (find-duplicates  (concat image-root "normal-standards/")))
-												   (not dark-planets))
-											  (and (not (find-duplicates (concat image-root "normal-standards/")))
-												   (not (find-duplicates (concat image-root "dark-standards/")))))
-										  t
-										nil))
+(defconst planetarium--has-duplicates (or (and (not (find-duplicates  (concat image-root "normal-standards/")))
+											   (not dark-planets))
+										  (and (not (find-duplicates (concat image-root "normal-standards/")))
+											   (not (find-duplicates (concat image-root "dark-standards/"))))))
 
 (defun get-extension (dir)
   "Allow the user to input an image of whatever kind they may be interested in DIR by grabbing its extension out of the folder its in by finding the name and isolating the extension."
@@ -269,10 +262,8 @@
 (defun create-planetarium ()
   "The central are for collecting data from the various functions."
   (if planetarium--has-duplicates
-	  (if (or (and dark-planets
-				   (eq (count-planets (concat image-root "normal-standards/"))
-					   (count-planets (concat image-root "dark-standards/"))))
-			  (eq dark-planets nil))
+	  (if (eq (count-planets (concat image-root "normal-standards/"))
+			  (count-planets (concat image-root "dark-standards/")))
 		  (if (> (window-width) min-buffer-width)
 			  (let* ((result "")
 					 (planets (activated-planets))
