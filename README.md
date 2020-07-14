@@ -35,6 +35,8 @@ At the moment, I still cannot find a way to have it restart upon variable declar
 
 * `dir-for-normals' (defaults to `"normal-standards/"') - Set to replace the name `normal-standards/' for whatever purpose you may be interested in
 
+* `animation-latency' (defaults to `.4') - Set to change the amount of time it takes to change the image during the animation.
+
 The configuration, add as many images as you please, but follow the naming conventions:
 
 ```
