@@ -22,6 +22,11 @@
 
 (defconst planetarium-root (file-name-directory load-file-name))
 
+(defvar planetary-mode-map
+  (let ((map (make-sparse-keymap)))
+	(make-sparse-keymap)
+	map))
+
 (defgroup planetary nil
   "Customization group for Planetary."
   :tag "Planetarium!"
@@ -228,6 +233,11 @@
 	  (setq result nil))
 	result))
 
+(defconst planetarium--has-duplicates (or (and (not (find-duplicates  (concat image-root dir-for-normals)))
+											   (not dark-planets))
+										  (and (not (find-duplicates (concat image-root dir-for-normals)))
+											   (not (find-duplicates (concat image-root dir-for-darks))))))
+
 (defun get-appropriate-axis (string n-or-d)
   "Get the proper axis with a fallback, STRING, using N-OR-D (normal-or-dark) to know whether to use a lighter version."
   (if (image-type-available-p (intern (file-name-extension (get-extension (concat image-root n-or-d "axis")))))
@@ -266,11 +276,6 @@
 										 number)))))
 	  (throw 'warning "Notice: Double-check support for the images you added."))
 	result))
-
-(defconst planetarium--has-duplicates (or (and (not (find-duplicates  (concat image-root dir-for-normals)))
-											   (not dark-planets))
-										  (and (not (find-duplicates (concat image-root dir-for-normals)))
-											   (not (find-duplicates (concat image-root dir-for-darks))))))
 
 (defun get-extension (dir)
   "Allow the user to input an image of whatever kind they may be interested in DIR by grabbing its extension out of the folder its in by finding the name and isolating the extension."
