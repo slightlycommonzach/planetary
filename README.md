@@ -78,6 +78,10 @@ In order to access the animation feature, you can either run
 
 ```M-x stop-blink```. A must function. If it is blinking, you use this to restart the timer if `animated-timer` is enabled, or under any other circumstance, disabling `M-x start-blink`.
 
+**New!:** You can now take advantage of `planetary-mode-map`.
+
+I've set mine up to restart the timer with a pre-set `stop-blink` keymap to "C-p s".
+
 You can also click the planets to move to the lowest part of a given position, being the first part of the 9th that the buffer is divided into by default with the planets if you choose not to modify them yourself.
 
 ## Screenshots
