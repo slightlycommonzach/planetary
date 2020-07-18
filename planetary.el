@@ -188,7 +188,8 @@
 		(cancel-timer stand-up-reminder-timer)
 		(setq stand-up-reminder-timer nil
 			  proper-axis nil
-			  is-animating-p nil)
+			  is-animating-p nil
+			  count-it 0)
 		(force-mode-line-update)
 		(if is-timing-p
 			(setq stand-up-reminder-timer (run-at-time stand-up-timer animation-latency (function (lambda () (start-blink)))))))
